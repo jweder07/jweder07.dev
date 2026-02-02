@@ -1,3 +1,22 @@
-/public/
-/resources/_gen/
-/.hugo_build.lock
+# Hugo build output
+public/
+
+# Hugo resources folder (optional - contains processed assets)
+resources/_gen/
+
+# Temporary files
+.hugo_build.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node modules (if using npm/yarn for themes or tools)
+node_modules/
