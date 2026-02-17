@@ -6,7 +6,7 @@
 *~
 .DS_Store
 Thumbs.db
-
+index2.html
 # Node modules (if you add npm packages later)
 node_modules/
 package-lock.json

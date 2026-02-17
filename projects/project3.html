@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Project 3 - Jakob Weder's Portfolio">
+    <title>Project 3 - Jakob Weder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .project-header {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, var(--primary-color), #2d5a7f);
+            color: white;
+        }
+
+        .project-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        .project-content {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+
+        .project-section {
+            margin: 40px 0;
+        }
+
+        .project-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .project-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .back-button:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .project-header {
+                padding: 40px 20px;
+            }
+
+            .project-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .project-header p {
+                font-size: 1rem;
+            }
+
+            .project-content {
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .project-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-header {
+                padding: 30px 15px;
+            }
+
+            .project-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .project-content {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+
+            .project-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .project-section p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+            </div>
+            <div class="nav-center">
+                <h1 class="nav-title">Project 3</h1>
+            </div>
+            <div class="nav-right">
+                <a href="https://linkedin.com/in/jakob-weder" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/jakob_weder_/" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="project-header">
+            <a href="../index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+            <h1>Project 3</h1>
+            <p>A detailed look at one of my mechanical engineering projects. Click below to learn more about the design, development, and implementation.</p>
+        </div>
+
+        <div class="project-content">
+            <div class="project-section">
+                <h2>Overview</h2>
+                <p>Add a brief overview of your project here. Describe what this project is about and what inspired you to work on it.</p>
+                <img src="../Images/Rubber%20Foot.png" alt="Project 3" class="project-image">
+            </div>
+
+            <div class="project-section">
+                <h2>Challenge</h2>
+                <p>Explain the main challenge or problem that this project addressed. What were the key objectives?</p>
+            </div>
+
+            <div class="project-section">
+                <h2>Solution & Design</h2>
+                <p>Describe your approach to solving the problem. Include details about the design process, materials used, and key features.</p>
+            </div>
+
+            <div class="project-section">
+                <h2>Results & Outcome</h2>
+                <p>Share the results of your project. What did you learn? How successful was the implementation?</p>
+            </div>
+
+            <div class="project-section">
+                <h2>Technical Skills</h2>
+                <p>List the technical skills and tools you used for this project such as CAD software, programming languages, or fabrication techniques.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Jakob Weder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
