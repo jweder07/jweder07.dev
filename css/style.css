@@ -112,36 +112,41 @@ body {
     position: relative;
     width: 40px;
     height: 40px;
-    transition: color 0.3s;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .theme-toggle:hover {
     color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 .theme-toggle i {
     position: absolute;
-    transition: opacity 0.3s, transform 0.3s;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .theme-toggle i:first-child {
     opacity: 1;
-    transform: rotate(0deg);
+    transform: rotate(0deg) scale(1);
 }
 
 .theme-toggle i:last-child {
     opacity: 0;
-    transform: rotate(-20deg);
+    transform: rotate(-45deg) scale(0.5);
 }
 
 body.dark-mode .theme-toggle i:first-child {
     opacity: 0;
-    transform: rotate(20deg);
+    transform: rotate(45deg) scale(0.5);
 }
 
 body.dark-mode .theme-toggle i:last-child {
     opacity: 1;
-    transform: rotate(0deg);
+    transform: rotate(0deg) scale(1);
 }
 
 /* Hero Section */
@@ -155,19 +160,33 @@ body.dark-mode .theme-toggle i:last-child {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+    grid-template-columns: 0.9fr 1.1fr 0.7fr;
+    gap: 30px;
+    align-items: flex-start;
 }
 
 .hero-left {
     display: flex;
     justify-content: center;
+    justify-self: end;
+}
+
+.hero-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .profile-image {
-    width: 280px;
-    height: 350px;
+    width: 380px;
+    height: 480px;
     border-radius: 30px;
     object-fit: cover;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -176,8 +195,104 @@ body.dark-mode .theme-toggle i:last-child {
 .hero-right {
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    perspective: 1000px;
+}
+
+/* Card Deck Styles */
+.card-deck {
+    position: relative;
+    width: 220px;
+    height: 350px;
+    perspective: 1200px;
+}
+
+.card {
+    position: absolute;
+    width: 200px;
+    height: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: center;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: scale(1.1) translateY(-30px) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    z-index: 10 !important;
+}
+
+body.dark-mode .card {
+    background: var(--light-color);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
-    gap: 30px;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40%;
+    background: var(--bg-primary);
+}
+
+body.dark-mode .card-content {
+    background: var(--light-color);
+}
+
+.card-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.card-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Card stacking positions */
+.card-1 {
+    left: 10px;
+    top: 20px;
+    z-index: 3;
+    transform: rotateZ(-12deg) rotateY(-15deg);
+}
+
+.card-2 {
+    left: 20px;
+    top: 50px;
+    z-index: 2;
+    transform: rotateZ(0deg) rotateY(0deg);
+}
+
+.card-3 {
+    left: 30px;
+    top: 80px;
+    z-index: 1;
+    transform: rotateZ(12deg) rotateY(15deg);
 }
 
 .hero-title {
@@ -196,20 +311,21 @@ body.dark-mode .theme-toggle i:last-child {
     font-size: 1rem;
     line-height: 1.8;
     color: var(--text-secondary);
-    max-width: 90%;
+    margin: 15px 0;
 }
 
 .hero-cta {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    max-width: 90%;
+    margin-bottom: 20px;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     flex-direction: column;
     width: fit-content;
+    margin-top: 20px;
 }
 
 .btn {
@@ -257,23 +373,24 @@ body.dark-mode .theme-toggle i:last-child {
 
 .decoration {
     position: absolute;
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .decoration img {
-    width: 150px;
+    width: 220px;
     height: auto;
-    opacity: 0.6;
+    opacity: 0.9;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .top-left {
-    top: -50px;
-    right: -50px;
+    top: 0px;
+    right: -100px;
 }
 
 .bottom-right {
-    bottom: -50px;
-    right: -80px;
+    bottom: 50px;
+    right: -120px;
 }
 
 /* Sections */
@@ -314,6 +431,35 @@ footer {
     .hero-center {
         display: none;
     }
+
+    .hero-right {
+        height: 400px;
+    }
+
+    .card-deck {
+        width: 180px;
+        height: 280px;
+    }
+
+    .card {
+        width: 160px;
+        height: 260px;
+    }
+
+    .card-1 {
+        left: 5px;
+        top: 15px;
+    }
+
+    .card-2 {
+        left: 15px;
+        top: 40px;
+    }
+
+    .card-3 {
+        left: 25px;
+        top: 65px;
+    }
     
     .hero-title {
         font-size: 2.5rem;
@@ -339,6 +485,48 @@ footer {
     .profile-image {
         width: 200px;
         height: 250px;
+    }
+
+    .hero-right {
+        height: 350px;
+        margin-top: 30px;
+    }
+
+    .card-deck {
+        width: 150px;
+        height: 240px;
+    }
+
+    .card {
+        width: 135px;
+        height: 220px;
+    }
+
+    .card-1 {
+        left: 0px;
+        top: 10px;
+    }
+
+    .card-2 {
+        left: 10px;
+        top: 30px;
+    }
+
+    .card-3 {
+        left: 20px;
+        top: 50px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .card-content h3 {
+        font-size: 1rem;
+    }
+
+    .card-content p {
+        font-size: 0.75rem;
     }
     
     .hero-title {
