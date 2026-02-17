@@ -10,13 +10,27 @@
     --light-color: #f8f9fa;
     --dark-color: #222;
     --accent-color: #0066cc;
+    --bg-primary: #ffffff;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --border-color: #eee;
+}
+
+body.dark-mode {
+    --bg-primary: #1a1a1a;
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0b0b0;
+    --dark-color: #0d0d0d;
+    --light-color: #2a2a2a;
+    --border-color: #444;
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
-    color: var(--secondary-color);
-    background-color: white;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -27,12 +41,13 @@ body {
 
 /* Header & Navigation */
 .navbar {
-    background-color: white;
+    background-color: var(--bg-primary);
     padding: 1.5rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .nav-container {
@@ -58,12 +73,12 @@ body {
 .nav-title {
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--text-primary);
 }
 
 .nav-link {
     text-decoration: none;
-    color: var(--secondary-color);
+    color: var(--text-primary);
     font-weight: 500;
     transition: color 0.3s;
 }
@@ -73,7 +88,7 @@ body {
 }
 
 .social-icon {
-    color: var(--secondary-color);
+    color: var(--text-primary);
     font-size: 1.3rem;
     transition: color 0.3s;
     text-decoration: none;
@@ -83,10 +98,57 @@ body {
     color: var(--accent-color);
 }
 
+/* Theme Toggle */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    transition: color 0.3s;
+}
+
+.theme-toggle:hover {
+    color: var(--accent-color);
+}
+
+.theme-toggle i {
+    position: absolute;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.theme-toggle i:first-child {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.theme-toggle i:last-child {
+    opacity: 0;
+    transform: rotate(-20deg);
+}
+
+body.dark-mode .theme-toggle i:first-child {
+    opacity: 0;
+    transform: rotate(20deg);
+}
+
+body.dark-mode .theme-toggle i:last-child {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
 /* Hero Section */
 .hero {
-    background-color: white;
+    background-color: var(--bg-primary);
     padding: 80px 40px;
+    transition: background-color 0.3s;
 }
 
 .hero-container {
@@ -122,24 +184,24 @@ body {
     font-size: 3.5rem;
     font-weight: 900;
     line-height: 1.2;
-    color: var(--secondary-color);
+    color: var(--text-primary);
 }
 
 .hero-title span {
     font-weight: 900;
-    color: var(--secondary-color);
+    color: var(--text-primary);
 }
 
 .hero-subtitle {
     font-size: 1rem;
     line-height: 1.8;
-    color: #666;
+    color: var(--text-secondary);
     max-width: 90%;
 }
 
 .hero-cta {
     font-size: 0.95rem;
-    color: #666;
+    color: var(--text-secondary);
     max-width: 90%;
 }
 
@@ -218,15 +280,18 @@ body {
 .resume, .projects {
     padding: 80px 40px;
     background-color: var(--light-color);
+    transition: background-color 0.3s;
 }
 
 .projects {
-    background-color: white;
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s;
 }
 
 section h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    color: var(--text-primary);
 }
 
 /* Footer */
@@ -236,6 +301,7 @@ footer {
     text-align: center;
     padding: 2rem 0;
     margin-top: 2rem;
+    transition: background-color 0.3s;
 }
 
 /* Responsive Design */
