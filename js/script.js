@@ -44,9 +44,9 @@ const cardDeck = document.querySelector('.card-deck');
 const cards = document.querySelectorAll('.card');
 
 const cardBasePositions = [
-    { left: 10, top: 20, rotateZ: -12, rotateY: -15 },
+    { left: 10, top: 20, rotateZ: -20, rotateY: -20 },
     { left: 20, top: 50, rotateZ: 0, rotateY: 0 },
-    { left: 30, top: 80, rotateZ: 12, rotateY: 15 }
+    { left: 30, top: 80, rotateZ: 20, rotateY: 20 }
 ];
 
 if (cardDeck) {
