@@ -6,119 +6,12 @@
     <meta name="description" content="Project 3 - Jakob Weder's Portfolio">
     <title>Project 3 - Jakob Weder</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .project-header {
-            padding: 60px 40px;
-            background: linear-gradient(135deg, var(--primary-color), #2d5a7f);
-            color: white;
-        }
-
-        .project-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 800px;
-        }
-
-        .project-content {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 40px;
-        }
-
-        .project-section {
-            margin: 40px 0;
-        }
-
-        .project-section h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .project-section p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
-
-        .project-image {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 12px;
-            margin: 30px 0;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 30px;
-            transition: color 0.3s;
-        }
-
-        .back-button:hover {
-            color: var(--accent-color);
-        }
-
-        @media (max-width: 768px) {
-            .project-header {
-                padding: 40px 20px;
-            }
-
-            .project-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .project-header p {
-                font-size: 1rem;
-            }
-
-            .project-content {
-                margin: 40px auto;
-                padding: 0 20px;
-            }
-
-            .project-section h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .project-header {
-                padding: 30px 15px;
-            }
-
-            .project-header h1 {
-                font-size: 1.4rem;
-            }
-
-            .project-content {
-                margin: 30px auto;
-                padding: 0 15px;
-            }
-
-            .project-section h2 {
-                font-size: 1.2rem;
-            }
-
-            .project-section p {
-                font-size: 0.95rem;
-            }
-        }
-    </style>
 </head>
-<body>
+<body class="project-page">
     <header class="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -145,6 +38,7 @@
 
     <main>
         <div class="project-header">
+            <p class="project-kicker">Case Study</p>
             <a href="../index.html" class="back-button">
                 <i class="fas fa-arrow-left"></i>
                 Back to Portfolio
