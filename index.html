@@ -58,8 +58,12 @@
                 </div>
                 
                 <div class="hero-right">
-                    <div class="card-deck">
-                        <div class="card card-1" onclick="window.location.href='projects/project1.html';">
+                    <div class="card-deck" data-card-deck tabindex="0" aria-label="Featured project cards">
+                        <button class="deck-btn deck-btn-prev" type="button" aria-label="Show previous project">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="deck-stage">
+                        <article class="card" data-card data-url="projects/project1.html">
                             <div class="card-inner">
                                 <img src="Images/Drawing%20%232.png" alt="Project 1">
                                 <div class="card-content">
@@ -67,8 +71,8 @@
                                     <p>Click to explore</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card card-2" onclick="window.location.href='projects/project2.html';">
+                        </article>
+                        <article class="card" data-card data-url="projects/project2.html">
                             <div class="card-inner">
                                 <img src="Images/FPV Drawing temp.png" alt="Project 2">
                                 <div class="card-content">
@@ -76,8 +80,8 @@
                                     <p>Click to explore</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card card-3" onclick="window.location.href='projects/project3.html';">
+                        </article>
+                        <article class="card" data-card data-url="projects/project3.html">
                             <div class="card-inner">
                                 <img src="Images/Rubber Foot.png" alt="Project 3">
                                 <div class="card-content">
@@ -85,7 +89,11 @@
                                     <p>Click to explore</p>
                                 </div>
                             </div>
+                        </article>
                         </div>
+                        <button class="deck-btn deck-btn-next" type="button" aria-label="Show next project">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>

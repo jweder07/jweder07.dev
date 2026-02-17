@@ -204,34 +204,100 @@ body.dark-mode .theme-toggle i:last-child {
 /* Card Deck Styles */
 .card-deck {
     position: relative;
-    width: 260px;
-    height: 400px;
+    width: 300px;
+    height: 420px;
     perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    touch-action: pan-y;
+    outline: none;
+}
+
+.deck-stage {
+    position: relative;
+    width: 260px;
+    height: 380px;
+}
+
+.deck-btn {
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text-primary);
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    z-index: 20;
+}
+
+.deck-btn:hover {
+    transform: translateY(-1px);
+    background: #fff;
+    border-color: #cfd6de;
+}
+
+@media (min-width: 1025px) {
+    .hero-right {
+        justify-content: flex-start;
+    }
+
+    .card-deck {
+        transform: translateX(-34px);
+    }
 }
 
 .card {
     position: absolute;
-    width: 240px;
+    left: 50%;
+    top: 50%;
+    width: 245px;
     height: 380px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
     transform-origin: center;
     overflow: hidden;
     border: 1px solid var(--border-color);
+    will-change: transform;
+    transform:
+        translate(-50%, -50%)
+        translateX(var(--card-x, 0px))
+        translateY(var(--card-y, 0px))
+        rotateX(var(--card-rx, 0deg))
+        rotateY(var(--card-ry, 0deg))
+        rotateZ(var(--card-rz, 0deg))
+        scale(var(--card-scale, 1));
+    z-index: var(--card-z, 1);
+    opacity: var(--card-opacity, 1);
 }
 
-.card:hover {
-    transform: scale(1.1) translateY(-30px) !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    z-index: 10 !important;
+.card.is-active {
+    box-shadow: 0 22px 52px rgba(0, 0, 0, 0.3);
+}
+
+.card:not(.is-active):hover {
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
 }
 
 body.dark-mode .card {
     background: var(--light-color);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .deck-btn {
+    background: rgba(42, 42, 42, 0.95);
+    border-color: #555;
+}
+
+body.dark-mode .deck-btn:hover {
+    background: rgba(52, 52, 52, 1);
 }
 
 .card-inner {
@@ -271,28 +337,6 @@ body.dark-mode .card-content {
 .card-content p {
     font-size: 0.9rem;
     color: var(--text-secondary);
-}
-
-/* Card stacking positions */
-.card-1 {
-    left: 10px;
-    top: 20px;
-    z-index: 3;
-    transform: rotateZ(-20deg) rotateY(-20deg);
-}
-
-.card-2 {
-    left: 20px;
-    top: 50px;
-    z-index: 2;
-    transform: rotateZ(0deg) rotateY(0deg);
-}
-
-.card-3 {
-    left: 30px;
-    top: 80px;
-    z-index: 1;
-    transform: rotateZ(20deg) rotateY(20deg);
 }
 
 .hero-title {
@@ -417,9 +461,8 @@ section h2 {
         transform: none;
     }
 
-    .card:hover {
-        transform: none !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+    .card:not(.is-active):hover {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -439,13 +482,18 @@ section h2 {
     }
 
     .card-deck {
-        width: 190px;
-        height: 290px;
+        width: 250px;
+        height: 350px;
+    }
+
+    .deck-stage {
+        width: 210px;
+        height: 310px;
     }
 
     .card {
-        width: 175px;
-        height: 275px;
+        width: 205px;
+        height: 310px;
     }
 
     .card-content h3 {
@@ -454,21 +502,6 @@ section h2 {
 
     .card-content p {
         font-size: 0.85rem;
-    }
-
-    .card-1 {
-        left: 5px;
-        top: 15px;
-    }
-
-    .card-2 {
-        left: 15px;
-        top: 40px;
-    }
-
-    .card-3 {
-        left: 25px;
-        top: 65px;
     }
     
     .hero-title {
@@ -523,28 +556,23 @@ section h2 {
     }
 
     .card-deck {
-        width: 155px;
-        height: 240px;
+        width: 220px;
+        height: 300px;
+    }
+
+    .deck-stage {
+        width: 180px;
+        height: 260px;
     }
 
     .card {
-        width: 140px;
-        height: 225px;
+        width: 176px;
+        height: 260px;
     }
 
-    .card-1 {
-        left: 0px;
-        top: 10px;
-    }
-
-    .card-2 {
-        left: 10px;
-        top: 30px;
-    }
-
-    .card-3 {
-        left: 20px;
-        top: 50px;
+    .deck-btn {
+        width: 34px;
+        height: 34px;
     }
 
     .card-content {
@@ -646,32 +674,24 @@ section h2 {
     }
 
     .card-deck {
-        width: 130px;
-        height: 200px;
+        width: 188px;
+        height: 250px;
+    }
+
+    .deck-stage {
+        width: 148px;
+        height: 215px;
     }
 
     .card {
-        width: 115px;
-        height: 185px;
+        width: 145px;
+        height: 215px;
     }
 
-    .card-1 {
-        left: -5px;
-        top: 5px;
-    }
-
-    .card-2 {
-        left: 5px;
-        top: 20px;
-    }
-
-    .card-3 {
-        left: 15px;
-        top: 35px;
-    }
-
-    .card:hover {
-        transform: scale(1.05) translateY(-20px) !important;
+    .deck-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
     }
 
     .card img {

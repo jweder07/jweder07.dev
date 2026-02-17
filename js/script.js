@@ -25,11 +25,13 @@ if (savedTheme) {
 }
 
 // Theme toggle event listener
-themeToggle.addEventListener('click', () => {
-    const isDarkMode = body.classList.contains('dark-mode');
-    applyTheme(!isDarkMode);
-    localStorage.setItem('theme', isDarkMode ? 'light' : 'dark');
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isDarkMode = body.classList.contains('dark-mode');
+        applyTheme(!isDarkMode);
+        localStorage.setItem('theme', isDarkMode ? 'light' : 'dark');
+    });
+}
 
 // Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
@@ -39,64 +41,122 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     }
 });
 
-// Card Deck Interactive Effect
-const cardDeck = document.querySelector('.card-deck');
-const cards = document.querySelectorAll('.card');
-
-const cardBasePositions = [
-    { left: 10, top: 20, rotateZ: -20, rotateY: -20 },
-    { left: 20, top: 50, rotateZ: 0, rotateY: 0 },
-    { left: 30, top: 80, rotateZ: 20, rotateY: 20 }
-];
+// Card Deck System
+const cardDeck = document.querySelector('[data-card-deck]');
 
 if (cardDeck) {
-    // Mouse tracking effect
-    document.addEventListener('mousemove', (e) => {
-        const deckRect = cardDeck.getBoundingClientRect();
-        
-        // Check if mouse is over the deck area
-        const isOverDeck = (
-            e.clientX >= deckRect.left &&
-            e.clientX <= deckRect.right &&
-            e.clientY >= deckRect.top &&
-            e.clientY <= deckRect.bottom
-        );
-        
-        if (!isOverDeck) return;
-        
-        const deckCenterX = deckRect.left + deckRect.width / 2;
-        const deckCenterY = deckRect.top + deckRect.height / 2;
-        
-        const distX = (e.clientX - deckCenterX) / 100;
-        const distY = (e.clientY - deckCenterY) / 100;
-        
+    const cards = Array.from(cardDeck.querySelectorAll('[data-card]'));
+    const prevBtn = cardDeck.querySelector('.deck-btn-prev');
+    const nextBtn = cardDeck.querySelector('.deck-btn-next');
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let activeIndex = 0;
+    let touchStartX = 0;
+    let pointerTilt = { x: 0, y: 0 };
+
+    const normalizeOffset = (offset) => {
+        const halfway = Math.floor(cards.length / 2);
+        if (offset > halfway) return offset - cards.length;
+        if (offset < -halfway) return offset + cards.length;
+        return offset;
+    };
+
+    const deckSpread = () => {
+        if (window.innerWidth <= 480) return 68;
+        if (window.innerWidth <= 768) return 84;
+        if (window.innerWidth <= 1024) return 98;
+        return 112;
+    };
+
+    const applyLayout = () => {
+        const spread = deckSpread();
+
         cards.forEach((card, index) => {
-            const basePos = cardBasePositions[index];
-            
-            const rotateX = distY * 1.5;
-            const rotateY = basePos.rotateY + distX * 1.5;
-            const rotateZ = basePos.rotateZ;
-            
-            card.style.transition = 'none';
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+            const offset = normalizeOffset(index - activeIndex);
+            const absOffset = Math.abs(offset);
+            const isActive = offset === 0;
+            const rotateY = isActive ? pointerTilt.y : offset * 7;
+            const rotateX = isActive ? pointerTilt.x : 0;
+
+            card.style.setProperty('--card-x', `${offset * spread}px`);
+            card.style.setProperty('--card-y', `${absOffset * 20}px`);
+            card.style.setProperty('--card-rz', `${offset * 9}deg`);
+            card.style.setProperty('--card-ry', `${rotateY}deg`);
+            card.style.setProperty('--card-rx', `${rotateX}deg`);
+            card.style.setProperty('--card-scale', `${isActive ? 1 : 0.93 - absOffset * 0.03}`);
+            card.style.setProperty('--card-z', `${10 - absOffset}`);
+            card.style.setProperty('--card-opacity', `${absOffset > 2 ? 0 : 1}`);
+            card.classList.toggle('is-active', isActive);
+            card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+    };
+
+    const moveActive = (delta) => {
+        activeIndex = (activeIndex + delta + cards.length) % cards.length;
+        pointerTilt = { x: 0, y: 0 };
+        applyLayout();
+    };
+
+    cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            if (index === activeIndex) {
+                const targetUrl = card.getAttribute('data-url');
+                if (targetUrl) window.location.href = targetUrl;
+                return;
+            }
+            activeIndex = index;
+            pointerTilt = { x: 0, y: 0 };
+            applyLayout();
         });
     });
 
-    // Reset on mouse leave
-    document.addEventListener('mouseleave', () => {
-        resetCardPositions();
+    if (prevBtn) prevBtn.addEventListener('click', () => moveActive(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => moveActive(1));
+
+    cardDeck.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            moveActive(-1);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            moveActive(1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const targetUrl = cards[activeIndex].getAttribute('data-url');
+            if (targetUrl) window.location.href = targetUrl;
+        }
     });
 
-    function resetCardPositions() {
-        cards.forEach((card, index) => {
-            const basePos = cardBasePositions[index];
-            card.style.transition = 'all 0.3s ease-out';
-            card.style.left = basePos.left + 'px';
-            card.style.top = basePos.top + 'px';
-            card.style.zIndex = 3 - index;
-            card.style.transform = `rotateZ(${basePos.rotateZ}deg) rotateY(${basePos.rotateY}deg)`;
+    cardDeck.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    cardDeck.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const deltaX = touchEndX - touchStartX;
+        if (Math.abs(deltaX) < 35) return;
+        moveActive(deltaX > 0 ? -1 : 1);
+    }, { passive: true });
+
+    if (supportsHover) {
+        cardDeck.addEventListener('pointermove', (e) => {
+            const rect = cardDeck.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            pointerTilt = {
+                x: (0.5 - y) * 5,
+                y: (x - 0.5) * 10
+            };
+            applyLayout();
+        });
+
+        cardDeck.addEventListener('pointerleave', () => {
+            pointerTilt = { x: 0, y: 0 };
+            applyLayout();
         });
     }
+
+    window.addEventListener('resize', applyLayout);
+    applyLayout();
 }
 
 // Smooth scrolling for navigation links
